@@ -6,7 +6,6 @@ Next.js 16 학습용 프로젝트입니다. 기본 스타터 위에, **Notion을
 
 - **랜딩 페이지** (`/`) — Hero / Features / CTA 섹션
 - **회사 소개** (`/about`) — About Hero / Story / Values / CTA
-- **로그인 폼** (`/login`) — UI만 구현된 폼 (실제 인증 로직 없음)
 - **자체 구현 다크모드** — `next-themes` 없이 `localStorage` + `.dark` 클래스 토글 방식으로 직접 구현. FOUC(테마 적용 전 깜빡임) 방지 인라인 스크립트 포함
 - **반응형 헤더/푸터** — 모바일에서는 햄버거 메뉴(Sheet)로 전환
 

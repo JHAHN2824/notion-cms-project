@@ -49,7 +49,8 @@ Next.js 16 학습용 스타터. 랜딩(`/`: Hero/Features/CTA) + 회사 소개(`
 - `components/sections/` — 페이지 섹션. 홈은 `hero`/`features`/`cta`, `/about`은 `about-*` 접두사
 - `components/ui/` — shadcn 프리미티브. 추가는 shadcn CLI로 (`base-nova` 스타일)
 - `lib/utils.ts` — `cn()` (clsx + tailwind-merge). `@/hooks` 별칭은 선언돼 있으나 `hooks/` 디렉토리는 아직 없음
-- `README.md`는 `create-next-app` 보일러플레이트 그대로다. 프로젝트 정보원으로 쓰지 말 것.
+- `.env.example` — `NOTION_TOKEN` / `NOTION_DATABASE_ID` 자리표시자. `.gitignore`가 `.env*`를 무시하면서 이 파일만 예외로 추적한다. 새로 만들지 말고 `cp .env.example .env.local` 후 채울 것
+- `README.md`는 이 프로젝트 전용 문서다 (현재 기능 / `/news` 구현 예정 / `.env.example` 사용법).
 
 스택: Next.js 16.2.10 / React 19.2.4 / TS 5 strict / Tailwind v4 / `@base-ui/react` + shadcn `base-nova` / cva + clsx + tailwind-merge / lucide-react / tw-animate-css
 

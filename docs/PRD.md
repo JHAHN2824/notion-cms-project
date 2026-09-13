@@ -245,9 +245,11 @@ export default async function NewsPage({
 
 `?category=a&category=b`처럼 **배열로 들어올 수 있으므로** `typeof rawCategory === "string"`으로 확인한 뒤 사용한다. `as string` 캐스팅을 쓰면 배열이 왔을 때 조용히 깨진다.
 
+> **`PageProps` 헬퍼를 쓰지 않는 이유**: Next.js 16 문서는 위 수기 타입 대신 전역 헬퍼 `PageProps<'/news'>`를 권장한다. 하지만 이 헬퍼는 `next dev`/`build`/`typegen`이 생성하는 타입에 의존하므로, `.next/`가 아직 없는 시점에 쓰면 저장 직후 자동으로 도는 `tsc --noEmit` 훅이 `Cannot find name 'PageProps'`로 실패한다. 그래서 이 프로젝트는 위의 명시적 타입을 그대로 쓴다.
+
 ### 7-3. `searchParams`와 ISR 캐싱은 양립하지 않는다
 
-`searchParams`는 요청 시점 API이므로, 사용하는 순간 페이지가 **동적 렌더링**으로 전환된다. 따라서 `export const revalidate = 300` 같은 설정을 써도 **무력화된다.**
+`searchParams`는 **Request-time API**이므로, 사용하는 순간 페이지가 **동적 렌더링**으로 전환된다(Next.js 16 공식 문서, `01-app/03-api-reference/03-file-conventions/page.md`). 매 요청마다 새로 실행되므로 `export const revalidate = 300` 같은 설정을 추가할 이유 자체가 없어진다 — 넣어도 의미 있게 작동할 지점이 없다.
 
 MVP에서는 이를 그대로 받아들인다 — 매 요청마다 Notion을 호출하지만, 학습용 프로젝트 트래픽에서는 문제가 없고 항상 최신 데이터가 보인다는 장점도 있다.
 캐싱이 필요해지면 Next.js 16에서는 `next.config.ts`에 `cacheComponents: true`를 켠 뒤 `'use cache'` + `cacheLife()`를 쓰는 것이 권장 방식이다. (`unstable_cache`는 여전히 동작하지만 공식 문서가 "`use cache`로 대체되었다"고 명시한다.)
@@ -266,7 +268,7 @@ function readTitle(properties: NotionProperties, key: string): string {
 ```
 
 - 필요한 추출기는 `readTitle` / `readRichText` / `readUrl` / `readSelectName` / `readDateStart` **5개뿐**이다.
-- SDK가 `isFullPage`, `isFullDatabase`, `isNotionClientError`, `APIErrorCode`를 **직접 제공**하므로 직접 만들 이유가 없다.
+- SDK가 `isFullPage`, `isFullDataSource`, `isNotionClientError`, `APIErrorCode`를 **직접 제공**하므로 직접 만들 이유가 없다. (v5에는 `isFullDatabase`가 없다 — database/query가 data source로 이전되면서 `isFullDataSource`로 바뀌었다. 전부 배럴 `@notionhq/client`에서 import한다)
 - `?.`를 쓰는 이유: 속성 이름에 오타가 있으면 런타임에 `undefined`가 나온다. `?.`가 없으면 그 순간 페이지 전체가 죽고, 있으면 그냥 빈 문자열이 된다. 초보자에게는 후자가 훨씬 낫다.
 
 ### 7-5. 실패를 예외가 아닌 **값**으로 표현한다
