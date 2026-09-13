@@ -18,7 +18,6 @@ const NAV_LINKS = [
   { href: "/#features", label: "기능" },
   { href: "/about", label: "소개" },
   { href: "/#cta", label: "시작하기" },
-  { href: "/login", label: "로그인" },
 ]
 
 export function SiteHeader() {
