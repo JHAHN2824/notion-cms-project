@@ -87,3 +87,4 @@ Next.js 16 학습용 스타터. 랜딩(`/`: Hero/Features/CTA) + 회사 소개(`
 | Next.js 16 문서 조사 | `nextjs-docs-researcher` 서브에이전트 | `.claude/agents/nextjs-docs-researcher.md` |
 | 빌드·타입·린트 실패 진단 | `build-doctor` 서브에이전트 | `.claude/agents/build-doctor.md` |
 | 코드 리뷰 | `code-reviewer` 서브에이전트 | `.claude/agents/code-reviewer.md` |
+| PRD → 로드맵 작성 | `prd-roadmap-planner` 서브에이전트 | `.claude/agents/prd-roadmap-planner.md` |
